@@ -1,0 +1,5 @@
+INDEX VERSION 1.134
+D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\554477594.index
+\chap02\src\main\java
+D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2321419722.index
+\chap02\src\main\resources
