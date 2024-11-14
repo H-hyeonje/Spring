@@ -12,6 +12,7 @@
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="home">HOME</a>
+				<a class="navbar-brand" href="books">책 목록</a>
 			</div>
 		</div>
 	</nav>
