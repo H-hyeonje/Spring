@@ -1,5 +1,13 @@
 INDEX VERSION 1.134
+D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1012635464.index
+\chap0201\src\main\resources
 D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\554477594.index
 \chap02\src\main\java
+D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3092440740.index
+\Spring_bookmarket\src\main\resources
 D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2321419722.index
 \chap02\src\main\resources
+D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3863821017.index
+\chap02\src\main\java
+D:\HHJ\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2639732678.index
+\Spring_bookmarket\src\main\java

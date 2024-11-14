@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="D:\HHJ\spring"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -25,12 +26,16 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.springmvc.Spring_bookmarket"/>
+			<item value="com.springmvc.chap0201"/>
 			<item value="com.springmvc.chap02"/>
 		</list>
 		<list key="groupId">
 			<item value="com.springmvc"/>
 		</list>
 		<list key="artifactId">
+			<item value="Spring_bookmarket"/>
+			<item value="chap0201"/>
 			<item value="chap02"/>
 		</list>
 		<list key="projectNameTemplate">
@@ -75,5 +80,19 @@
 		</list>
 	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="D:\HHJ\spring\chap0203\chap0203"/>
+			<item value="D:\HHJ\spring\chap0203"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
 	</section>
 </section>
