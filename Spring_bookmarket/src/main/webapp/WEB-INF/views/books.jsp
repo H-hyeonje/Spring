@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>도서 목록</title>
 </head>
@@ -13,8 +13,9 @@
 	<nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="home">HOME</a>
-				<a class="navbar-brand" href="books">책 목록</a>
+				<a class="navbar-brand" href="<c:url value='/home'/>">HOME</a>
+				<a class="navbar-brand" href="<c:url value='/books'/>">책 목록</a>
+				<a class="navbar-brand" href="<c:url value='/books/all'/>">책 목록</a>
 			</div>
 		</div>
 	</nav>

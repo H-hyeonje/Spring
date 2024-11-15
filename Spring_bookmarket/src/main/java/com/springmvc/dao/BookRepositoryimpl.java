@@ -2,7 +2,10 @@ package com.springmvc.dao;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +29,7 @@ public class BookRepositoryimpl implements BookRepository {
 	        book2.setAuthor("조현영");
 	        book2.setDescription("이 책은 프런트부터 서버, 데이터베이스, 배포까지 아우르는 광범위한 내용을 다룬다. 군더더기 없는 직관적인 설명으로 기본 개념을 확실히 이해하고, 노드의 기능과 생태계를 사용해 보면서 실제로 동작하는 서버를 만들어보자. 예제와 코드는 최신 문법을 사용했고 실무에 참고하거나 당장 적용할 수 있다.");
 	        book2.setPublisher("길벗");
-	        book2.setCategory("IT전문서");
+	        book2.setCategory("IT문서");
 	        book2.setUnitsInStock(1000);
 	        book2.setReleaseDate("2020/07/25");
 	        Book book3 = new Book("ISBN1236", "어도비 XD CC 2020", 25000);
@@ -46,6 +49,51 @@ public class BookRepositoryimpl implements BookRepository {
 	@Override
 	public List<Book> getAllBookList() {
 		return listofBooks;
+	}
+
+
+	@Override
+	public List<Book> getBookListByCategory(String category) {
+		List<Book> booksByCategory =new ArrayList<Book>();
+		for(int i=0;i<listofBooks.size();i++) {
+			Book book = listofBooks.get(i);
+			if(category.equalsIgnoreCase(book.getCategory())) {
+				booksByCategory.add(book);
+			}
+		}
+		return booksByCategory;
+	}
+
+
+	public Set<Book> getBookListByFilter(Map<String, List<String>> filter) {
+		Set<Book> booksByPublisher =new HashSet<Book>();
+		Set<Book> booksByCategory =new HashSet<Book>();
+		
+		Set<String> booksByFilter =filter.keySet();
+		
+		if(booksByFilter.contains("publisher")) {
+			for(int j=0; j<filter.get("publisher").size();j++) {
+				String publisherName = filter.get("publisher").get(j);
+				for(int i=0;i<listofBooks.size();i++) {
+					Book book =listofBooks.get(i);
+					
+					if(publisherName.equalsIgnoreCase(book.getPublisher())) {
+						booksByPublisher.add(book);
+					}
+				}
+			}
+			
+		}
+		
+		if(booksByFilter.contains("category")) {
+			for(int i=0;i<filter.get("category").size();i++) {
+				String category = filter.get("category").get(i);
+				List<Book> list =getBookListByCategory(category);
+				booksByCategory.addAll(list);
+			}
+		}
+		booksByCategory.retainAll(booksByPublisher);
+		return booksByCategory;
 	}
 
 }
