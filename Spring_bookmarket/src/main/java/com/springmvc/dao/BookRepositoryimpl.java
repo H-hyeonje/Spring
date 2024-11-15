@@ -96,4 +96,22 @@ public class BookRepositoryimpl implements BookRepository {
 		return booksByCategory;
 	}
 
+
+	@Override
+	public Book getBookById(String bookId) {
+		Book bookInfo =null;
+		for(int i=0;i<listofBooks.size();i++) {
+			Book book=listofBooks.get(i);
+			if(book !=null && book.getBookId() !=null && book.getBookId().equals(bookId)) {
+				bookInfo=book;
+				break;
+			}
+		}
+		
+		if(bookInfo==null) {
+			throw new NullPointerException("도서 ID가 "+bookId+"인 해당 도서를 찾을수 없습니다.");
+		}
+		return bookInfo;
+	}
+
 }

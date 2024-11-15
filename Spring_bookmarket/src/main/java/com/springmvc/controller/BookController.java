@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.service.BookService;
 import com.springmvc.dto.Book;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -58,6 +60,14 @@ public class BookController {
 		model.addAttribute("bookList",booksByFilter);
 		return "books";
 	}
+	
+	@GetMapping("/book")
+	public String RequestBookById(@RequestParam("id") String bookId, Model model) {
+		Book bookById=bookService.getBookById(bookId);
+		model.addAttribute("book", bookById);
+		return "book";
+	}
+	
 	
 
 }
