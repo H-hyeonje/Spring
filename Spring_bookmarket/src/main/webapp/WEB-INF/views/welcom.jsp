@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,8 @@
 	<nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="home">HOME</a>
-				<a class="navbar-brand" href="books">책 목록</a>
+				<a class="navbar-brand" href="<c:url value='/home'/>">Home</a>
+				<a class="navbar-brand" href="<c:url value='/books/all'/>">책 목록</a>
 			</div>
 		</div>
 	</nav>

@@ -14,7 +14,6 @@
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="<c:url value='/home'/>">HOME</a>
-				<a class="navbar-brand" href="<c:url value='/books'/>">책 목록</a>
 				<a class="navbar-brand" href="<c:url value='/books/all'/>">책 목록</a>
 			</div>
 		</div>

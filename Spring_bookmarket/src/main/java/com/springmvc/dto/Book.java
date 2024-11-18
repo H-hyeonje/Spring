@@ -3,6 +3,8 @@ package com.springmvc.dto;
 public class Book {
 	
 	
+	public Book() {}
+	
 	public Book(String bookId,String name, int unitPrice) {
 		this.bookId=bookId;
 		this.name=name;

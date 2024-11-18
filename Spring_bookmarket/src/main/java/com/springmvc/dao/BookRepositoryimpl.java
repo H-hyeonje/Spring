@@ -114,4 +114,11 @@ public class BookRepositoryimpl implements BookRepository {
 		return bookInfo;
 	}
 
+
+	@Override
+	public void setNewBook(Book book) {
+		listofBooks.add(book);
+		
+	}
+
 }
