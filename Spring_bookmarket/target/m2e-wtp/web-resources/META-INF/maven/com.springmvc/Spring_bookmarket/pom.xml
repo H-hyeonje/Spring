@@ -10,6 +10,9 @@
       <org.springframework-version>5.3.19</org.springframework-version>
       <org.aspectj-version>1.9.9.1</org.aspectj-version>
       <org.slf4j-version>1.7.36</org.slf4j-version>
+      <security.version>5.6.3</security.version>
+      <commons-fileupload-version>1.4</commons-fileupload-version>
+      <commons-io-version>2.11.0</commons-io-version>
    </properties>
   
   <name>Spring_bookmarket Maven Webapp</name>
@@ -51,9 +54,40 @@
          <artifactId>spring-webmvc</artifactId>
          <version>${org.springframework-version}</version>
       </dependency>
+      
+      
+     <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+	<dependency>
+   		 <groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-web</artifactId>
+   		 <version>${security.version}</version>
+	</dependency>
+
+      
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+	<dependency>
+   		 <groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-config</artifactId>
+    	<version>${security.version}</version>
+	</dependency>
+	
+	
+	<!--  파일 업로드-->
+	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>${commons-io-version}</version>
+</dependency>
 
 
-    
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>${commons-fileupload-version}</version>
+</dependency>
+ <!-- 파일업로드 끝-->   
   </dependencies>
   
   <build>

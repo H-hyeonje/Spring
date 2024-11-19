@@ -1,5 +1,7 @@
 package com.springmvc.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Book {
 	
 	
@@ -21,6 +23,19 @@ public class Book {
 	private long unitsInStock; 
 	private String releaseDate; 
 	private String condition; 
+	private MultipartFile bookImage;
+	
+	
+	
+	
+	public MultipartFile getBookImage() {
+		return bookImage;
+	}
+
+	public void setBookImage(MultipartFile bookImage) {
+		this.bookImage = bookImage;
+	}
+
 	public String getBookId() {
 		return bookId;
 	}

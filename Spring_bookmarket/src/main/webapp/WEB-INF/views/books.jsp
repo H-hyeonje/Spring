@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.awt.print.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,6 +32,14 @@
 		<div class="row" align="center">
 			<c:forEach items="${bookList}" var="book">
 				<div class="col-md-4">
+				 	<% ArrayList<book> book =(ArrayList<book>)request.getAttribute("bookList");
+				 	for(book.)
+				 	if(==null){%>
+				   <img src="/Spring_bookmarket/resources/images/${book.bookId}.png" style="width:60%"/>
+					
+					<%}else {%>
+					<img src="/Spring_bookmarket/resources/images/${book.getBookImage().getOriginalFilename()}" style="width:60%"/>
+					<%} %>
 					<h3>${book.name}</h3>
 					<p>${book.author}
 					<br>${book.publisher}| ${book.releaseDate}
