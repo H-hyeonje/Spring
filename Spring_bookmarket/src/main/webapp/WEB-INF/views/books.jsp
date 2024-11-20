@@ -1,7 +1,8 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.awt.print.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="com.springmvc.dto.*" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -30,25 +31,28 @@
 	
 	<div class="container">
 		<div class="row" align="center">
-			<c:forEach items="${bookList}" var="book">
+			<%
+				List<Book> bb=(List<Book>)request.getAttribute("bookList");
+				if(bb !=null){
+				for(Book book:bb){
+				if(book.getBookImage()==null){
+			    %>
 				<div class="col-md-4">
-				 	<% ArrayList<book> book =(ArrayList<book>)request.getAttribute("bookList");
-				 	for(book.)
-				 	if(==null){%>
-				   <img src="/Spring_bookmarket/resources/images/${book.bookId}.png" style="width:60%"/>
+				   <img src="/Spring_bookmarket/resources/images/<%=book.getBookId()%>.png" style="width:60%"/>
 					
 					<%}else {%>
-					<img src="/Spring_bookmarket/resources/images/${book.getBookImage().getOriginalFilename()}" style="width:60%"/>
+					<img src="/Spring_bookmarket/resources/images/<%=book.getBookImage().getOriginalFilename()%>}" style="width:60%"/>
 					<%} %>
-					<h3>${book.name}</h3>
-					<p>${book.author}
-					<br>${book.publisher}| ${book.releaseDate}
-					<p align="left">${fn:substring(book.description,0,100) }...</p>
-					<p>${book.unitPrice} 원</p>
-					<p><a href="<c:url value="/books/book?id=${book.bookId}"/>"
-					class="btn btn-primary" role="button">상세정보 &raquo;</a>
+					<h3><%=book.getName()%></h3>
+					<p><%=book.getAuthor() %>
+					<br><%=book.getPublisher()%>| <%=book.getReleaseDate()%>
+					<p align="left"><%=book.getDescription()%>...</p>
+					<p><%=book.getUnitPrice()%> 원</p>
+					<p><a href="/Spring_bookmarket/books/book?id=<%=book.getBookId()%>" class="btn btn-primary" role="button" >
+					상세정보 &raquo;</a>
 				</div>
-			</c:forEach>
+				
+				<%}} %>
 		</div>
 		<hr>
 		<footer>

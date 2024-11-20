@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
@@ -24,8 +25,7 @@ import com.springmvc.dto.Book;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
+import com.springmvc.exception.*;
 
 @Controller
 @RequestMapping("/books")
@@ -56,6 +56,11 @@ public class BookController {
 	{
 		System.out.println(bookCategory);
 		List<Book> booksByCategory=bookService.getBookListByCategory(bookCategory);
+		
+		if(booksByCategory==null || booksByCategory.isEmpty()) {
+			throw new CategoryException();
+		}
+		
 		model.addAttribute("bookList",booksByCategory);
 		return "books";
 	}
@@ -110,6 +115,16 @@ public class BookController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setAllowedFields("bookId","name","unitPrice","author","description","publisher","category","unitsInStock","totalPages","releaseDate","condition","bookImage");
+	}
+	
+	@ExceptionHandler(value = {bookIdException.class})
+	public ModelAndView handleError(HttpServletRequest req,bookIdException exception) {
+		ModelAndView mav =new ModelAndView();
+		mav.addObject("invalidBookId",exception.getBookid());
+		mav.addObject("exception",exception);
+		mav.addObject("url",req.getRequestURL()+"?"+req.getQueryString());
+		mav.setViewName("errorBook");
+		return mav;
 	}
 	
 

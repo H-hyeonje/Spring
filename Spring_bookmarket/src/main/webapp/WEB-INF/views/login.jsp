@@ -12,7 +12,7 @@
 	<nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/home">HOME</a>
+				<a class="navbar-brand" href="/Spring_bookmarket/home">HOME</a>
 			</div>
 		</div>
 	</nav>

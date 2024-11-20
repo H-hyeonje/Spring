@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.springmvc.exception.*;
 
 import org.springframework.stereotype.Repository;
 
@@ -109,7 +110,7 @@ public class BookRepositoryimpl implements BookRepository {
 		}
 		
 		if(bookInfo==null) {
-			throw new NullPointerException("도서 ID가 "+bookId+"인 해당 도서를 찾을수 없습니다.");
+			throw new bookIdException(bookId);
 		}
 		return bookInfo;
 	}
