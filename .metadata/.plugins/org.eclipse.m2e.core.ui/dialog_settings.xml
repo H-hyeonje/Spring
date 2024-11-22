@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="D:\D\HHJ\spring\Spring_bookmarket"/>
 			<item value="D:\HHJ\spring\Spring_bookmarket"/>
 			<item value="D:\HHJ\spring\chap09"/>
 			<item value="D:\HHJ\spring"/>
@@ -28,6 +29,7 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.springmvc.exam14"/>
 			<item value="com.springmvc.chap10"/>
 			<item value="com.springmvc.chap09_1"/>
 			<item value="com.springmvc.chap09"/>
@@ -42,6 +44,7 @@
 			<item value="com.springmvc"/>
 		</list>
 		<list key="artifactId">
+			<item value="exam14"/>
 			<item value="chap10"/>
 			<item value="chap09_1"/>
 			<item value="chap09"/>

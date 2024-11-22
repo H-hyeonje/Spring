@@ -1,6 +1,14 @@
 package com.springmvc.dto;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import com.springmvc.validator.BookId;
 
 public class Book {
 	
@@ -13,9 +21,19 @@ public class Book {
 		this.unitPrice=unitPrice;
 	}
 	
+	@BookId
+	@Pattern(regexp="ISBN[1-9]+", message="{Pattern.book.bookId}")
 	private String bookId; 
+	
+	@Size(min=4,max=50,message="{Size.book.name}")
 	private String name; 
+	
+	@Min(value=0,message="{Min.book.unitPrice}")
+	@Digits(integer=8, fraction=2,message="{Digits.book.unitPrice}")
+	@NotNull(message="{NotNull.book.unitPrice}")
 	private int unitPrice; 
+	
+	
 	private String author; 
 	private String description; 
 	private String publisher; 

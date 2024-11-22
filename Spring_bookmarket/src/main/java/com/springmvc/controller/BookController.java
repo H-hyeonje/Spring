@@ -1,16 +1,18 @@
 package com.springmvc.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.springmvc.service.BookService;
+import com.springmvc.validator.BookValidator;
+import com.springmvc.validator.UnitsInStockValidator;
 import com.springmvc.dto.Book;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +37,12 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	//autowired 하려면 스캔되야함
+	
+	@Autowired
+	private BookValidator bookValidator;
+	
+	@Autowired
+	private UnitsInStockValidator unitsInStockValidator;
 	
 	@GetMapping
 	public String requestBookList(Model model) {
@@ -88,7 +98,13 @@ public class BookController {
 	}
 	
 	@PostMapping("/add")
-	public String postMethodName(@ModelAttribute Book book,HttpServletRequest req) {
+	public String postMethodName(@Valid @ModelAttribute Book book,BindingResult result,HttpServletRequest req) {
+		
+		if(result.hasErrors()) {
+
+			return "addBook";
+		}
+		
 		MultipartFile bookImage=book.getBookImage();
 		String save=req.getServletContext().getRealPath("/resources/images");
 		System.out.println(save);
@@ -114,6 +130,8 @@ public class BookController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(unitsInStockValidator);
+		binder.setValidator(bookValidator);
 		binder.setAllowedFields("bookId","name","unitPrice","author","description","publisher","category","unitsInStock","totalPages","releaseDate","condition","bookImage");
 	}
 	
