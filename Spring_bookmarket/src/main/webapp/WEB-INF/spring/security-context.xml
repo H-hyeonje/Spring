@@ -17,7 +17,6 @@
 					authentication-failure-url="/loginfailed"
 					username-parameter="username"
 					password-parameter="password"/>
-		<csrf/>
 		<logout logout-success-url="/logout"/>
     </http>
     

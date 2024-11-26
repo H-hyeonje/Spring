@@ -1,10 +1,13 @@
 package com.springmvc.dto;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Cart {
+public class Cart implements Serializable{
+	
+	private static final long serialVersionUID = 2155125089108199199L;
 	private String cartId;
 	private Map<String,CartItem> cartItems;
 	private int grandTotal;
@@ -15,7 +18,7 @@ public class Cart {
 	}
 
 	public Cart(String cartId) {
-		super();
+		this();
 		this.cartId = cartId;
 	}
 
@@ -41,6 +44,9 @@ public class Cart {
 
 	public void setGrandTotal(int grandTotal) {
 		this.grandTotal = grandTotal;
+		for(CartItem item:cartItems.values()) {
+			grandTotal=grandTotal+item.getTotalPrice();
+		}
 	}
 	
 	public void updateGrandTotal() {
@@ -52,7 +58,10 @@ public class Cart {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cartId);
+		final int prime=31;
+		int result =1;
+		result=prime*result+((cartId==null)? 0 : cartId.hashCode());
+		return result;
 	}
 
 	@Override
@@ -88,5 +97,9 @@ public class Cart {
 		updateGrandTotal();
 	}
 	
-	
+	public void removeCartItem(CartItem item) {
+		String bookId=item.getBook().getBookId();
+		cartItems.remove(bookId);
+		updateGrandTotal();
+				}
 }

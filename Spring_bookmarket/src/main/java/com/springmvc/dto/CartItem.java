@@ -1,15 +1,16 @@
 package com.springmvc.dto;
 
-public class CartItem {
+import java.io.Serializable;
+
+public class CartItem implements Serializable{
+	private static final long serialVersionUID = 3636831123198280235L;
 	private Book book;
 	private int quantity;
 	private int totalPrice;
 	
 	public CartItem() {}
 
-	public Book getBook() {
-		return book;
-	}
+
 	
 	public CartItem(Book book) {
 		super();
@@ -18,9 +19,13 @@ public class CartItem {
 		this.totalPrice =book.getUnitPrice();	
 	}
 	
+	public Book getBook() {
+		return book;
+	}
 
 	public void setBook(Book book) {
 		this.book = book;
+		this.updateTotalPrice();
 	}
 
 	public int getQuantity() {
@@ -29,6 +34,7 @@ public class CartItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		this.updateTotalPrice();
 	}
 
 	public int getTotalPrice() {
@@ -39,7 +45,7 @@ public class CartItem {
 		this.totalPrice = totalPrice;
 	}
 	
-	public void updateToralPrice() {
+	public void updateTotalPrice() {
 		totalPrice =this.book.getUnitPrice()*this.quantity;
 	}
 
@@ -58,7 +64,7 @@ public class CartItem {
 	public boolean equals(Object obj) {
 		if(this==obj)
 			return true;
-		if(this==null)
+		if(obj==null)
 			return false;
 		if(getClass()!=obj.getClass())
 			return false;

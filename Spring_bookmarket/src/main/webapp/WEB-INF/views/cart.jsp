@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,10 @@
 	</div>
 	<div class="container">
 		<div>
-			<a href="#" class="btn btn-succes float-right">주문하기</a>
+			<form:form name="clearForm" method="delete">
+				<a href="javascript:clearCart()" class="btn btn-danger pull-left">삭제하기</a>
+			</form:form>
+			<a href="<c:url value="/order?cartId=${cartId}"/>" class="btn btn-succes float-right">주문하기</a>
 		</div>
 		<div style="padding-top :50px">
 			<table class="table table-hover">
@@ -34,15 +38,17 @@
 					<th>소계</th>
 					<th>비고</th>
 				</tr>
+				<form:form name="removeForm" method="put">
 				<c:forEach items="${cart.cartItems}" var="item">
 					<tr>
-						<td>${item.value.book.booId}-${item.vaule.book.name}</td>
+						<td><b>${item.value.book.bookId}-${item.value.book.name}</b></td>
 						<td>${item.value.book.unitPrice}</td>
 						<td>${item.value.quantity}</td>
 						<td>${item.value.totalPrice}</td>
+						<td><a href="javascript:removeFromCart('../cart/remove/${item.value.book.bookId}')" class="badge badge-danger">삭제</a></td>
 					</tr>
 				</c:forEach>
-				
+				</form:form>
 				<tr>
 					<th></th>
 					<th></th>
@@ -52,7 +58,7 @@
 				</tr>
 			</table>
 			
-			<a href="<c:url value="/books"/>" class="btn btn-secondary"> 쇼핑 계속하기</a>
+			<a href="<c:url value="/books"/>" class="btn btn-secondary">&laquo; 쇼핑 계속하기</a>
 		</div>
 			<hr>
 	<footer>

@@ -14,13 +14,14 @@ import com.springmvc.dto.CartItem;
 import com.springmvc.exception.bookIdException;
 import com.springmvc.service.BookService;
 import com.springmvc.service.CartService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
@@ -69,16 +70,43 @@ public class CartController {
 	@PutMapping("/add/{bookId}")
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void addCartByNewItem(@PathVariable String bookId, HttpServletRequest req) {
-		String sessionId=req.getSession(true).getId();
+		System.out.println("PUT request received for bookId: " + bookId);
+		String sessionId = req.getSession(true).getId();
+	    Cart cart = cartService.read(sessionId);
+	    
+	    if(cart == null) {
+	        cart = cartService.create(new Cart(sessionId));
+	    }
+	    
+	    Book book = bookService.getBookById(bookId);
+	    if(book == null) {
+	        throw new bookIdException(bookId);
+	    }
+	    
+	    cart.addCartItem(new CartItem(book));
+	    cartService.update(sessionId, cart);
+	}
+	
+	@PutMapping("/remove/{bookId}")
+	@ResponseStatus(value=HttpStatus.NO_CONTENT)
+	public void putMethodName(@PathVariable String bookId, HttpServletRequest request) {
+
+		String sessionId=request.getSession(true).getId();
 		Cart cart=cartService.read(sessionId);
-		if(cart==null) 
+		if(cart==null)
 			cart=cartService.create(new Cart(sessionId));
-			Book book = bookService.getBookById(bookId);
-			if(book==null){
-				throw new IllegalArgumentException(new bookIdException(bookId));
-				
-			}
-			cart.addCartItem(new CartItem(book));
-			cartService.update(sessionId, cart);
+			Book book =bookService.getBookById(bookId);
+			
+		if(book==null) 
+			throw new IllegalArgumentException(new bookIdException(bookId));
+		cart.removeCartItem(new CartItem(book));
+		cartService.update(sessionId, cart);
+		
+	}
+	
+	@DeleteMapping("/{cartId}")
+	@ResponseStatus(value=HttpStatus.NO_CONTENT)
+	public void deleteCartList(@PathVariable(value = "cartId") String cartId) {
+		cartService.delete(cartId);
 	}
 }

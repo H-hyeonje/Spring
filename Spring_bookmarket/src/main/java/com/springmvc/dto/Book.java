@@ -1,5 +1,7 @@
 package com.springmvc.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,9 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springmvc.validator.BookId;
 
-public class Book {
+public class Book implements Serializable {
 	
-	
+	private static final long serialVersionUID = -7715651009026349175L;
 	public Book() {}
 	
 	public Book(String bookId,String name, int unitPrice) {

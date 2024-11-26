@@ -29,6 +29,7 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.spring.jsontest"/>
 			<item value="com.springmvc.exam14"/>
 			<item value="com.springmvc.chap10"/>
 			<item value="com.springmvc.chap09_1"/>
@@ -41,9 +42,11 @@
 			<item value="com.springmvc.chap02"/>
 		</list>
 		<list key="groupId">
+			<item value="com.spring"/>
 			<item value="com.springmvc"/>
 		</list>
 		<list key="artifactId">
+			<item value="jsontest"/>
 			<item value="exam14"/>
 			<item value="chap10"/>
 			<item value="chap09_1"/>
