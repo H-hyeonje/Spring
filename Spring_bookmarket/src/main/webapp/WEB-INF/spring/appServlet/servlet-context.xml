@@ -65,8 +65,9 @@
 		</beans:property>
 	</beans:bean>
 	
-	<webflow:flow-registry id="flowRegistry">
-		<webflow:flow-location path="/WEB-INF/flows/order/order-flow.xml" id="order"></webflow:flow-location>
+	<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices">
+	
+		<webflow:flow-location path="/WEB-INF/flows/order/order-flow.xml" id="order"/>
 	</webflow:flow-registry>
 	
 	<webflow:flow-executor id="flowExecutor" flow-registry="flowRegistry"></webflow:flow-executor>
@@ -78,4 +79,21 @@
 	<beans:bean id="flowHandlerAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
 		<beans:property name="flowExecutor" ref="flowExecutor"/>
 	</beans:bean>
+	
+	<!-- 타일즈 뷰리졸버 -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	    <beans:property name="order" value="1"/>
+	</beans:bean>
+
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	    <beans:property name="definitions" value="/WEB-INF/tiles/tiles.xml"/>
+	</beans:bean>
+
+	<webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="viewFactoryCreator"/>
+
+	<beans:bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<beans:property name="viewResolvers" ref="tilesViewResolver"></beans:property>
+	</beans:bean>
+	
 </beans:beans>

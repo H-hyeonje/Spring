@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand navbar-dark bg-dark">
+	<!-- <nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="<c:url value='/home'/>">HOME</a>
@@ -25,7 +25,7 @@
 		<div class="container">
 			<h1 class="display-3">도서 정보</h1>
 		</div>
-	</div>
+	</div>-->
 	
 	<div class="container">
 		<div class="row">
@@ -53,10 +53,10 @@
 			</div>
 		</div>
 	</div>
-	<hr>
+<!--	<hr>
 	<footer>
 		<p>&copy; BookMarket</p>
-	</footer>
+	</footer> -->
 	
 	
 </body>
