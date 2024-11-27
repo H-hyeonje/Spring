@@ -31,28 +31,24 @@
 	
 	<div class="container">
 		<div class="row" align="center">
-			<%
-				List<Book> bb=(List<Book>)request.getAttribute("bookList");
-				if(bb !=null){
-				for(Book book:bb){
-				if(book.getBookImage()==null){
-			    %>
+			<c:forEach items="${bookList}" var="book">
 				<div class="col-md-4">
-				   <img src="/Spring_bookmarket/resources/images/<%=book.getBookId()%>.png" style="width:60%"/>
-					
-					<%}else {%>
-					<img src="/Spring_bookmarket/resources/images/<%=book.getBookImage().getOriginalFilename()%>}" style="width:60%"/>
-					<%} %>
-					<h3><%=book.getName()%></h3>
-					<p><%=book.getAuthor() %>
-					<br><%=book.getPublisher()%>| <%=book.getReleaseDate()%>
-					<p align="left"><%=book.getDescription()%>...</p>
-					<p><%=book.getUnitPrice()%> 원</p>
-					<p><a href="/Spring_bookmarket/books/book?id=<%=book.getBookId()%>" class="btn btn-primary" role="button" >
-					상세정보 &raquo;</a>
-				</div>
-				
-				<%}} %>
+				<c:choose>
+					<c:when test="${book.getBookImage()==null}">
+						<img src='<c:url value="/resources/images/${book.fileName}"/>' style="width:60%"/>
+					</c:when>
+					<c:otherwise>
+						<img src='<c:url value="/resources/images/${book.fileName}"/>' style="width:60%"/>
+					</c:otherwise>
+				</c:choose>
+				<h3>${book.name}</h3>
+				<p>${book.author}</p>
+				<br>${book.publisher} | ${book.releaseDate}
+				<p>${fn:substring(book.description,0,100)}...</p>
+				<p>${book.unitPrice}원</p>
+				<p><a href="<c:url value='/books/book?id=${book.bookId}'/>" class="btn btn-secondary" role="button">상세정보 &raquo;</a></p>
+			</div>
+			</c:forEach>
 		</div>
 	<!--  	<hr>
 		<footer>

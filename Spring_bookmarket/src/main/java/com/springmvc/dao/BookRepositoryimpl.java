@@ -4,10 +4,16 @@ package com.springmvc.dao;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale.Category;
 import java.util.Map;
 import java.util.Set;
+
+import javax.sql.DataSource;
+
 import com.springmvc.exception.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.springmvc.dto.Book;
@@ -17,8 +23,15 @@ public class BookRepositoryimpl implements BookRepository {
 
 	private List<Book> listofBooks =new ArrayList<Book>();
 	
+	private JdbcTemplate template;
 	
-	   public BookRepositoryimpl() { 
+	@Autowired
+	public void setTemplate(DataSource dataSource) {
+		this.template = new JdbcTemplate(dataSource);
+	}
+	
+	
+	/*   public BookRepositoryimpl() { 
 	        Book book1 = new Book("ISBN1234","C# 교과서",30000);
 	        book1.setAuthor("박용준");
 	        book1.setDescription("C# 교과서는 생애 첫 프로그래밍 언어로 C#을 시작하는 독자를 대상으로 한다. 특히 응용 프로그래머를 위한 C# 입문서로, C#을 사용하여 게임(유니티), 웹, 모바일, IoT 등을 개발할 때 필요한 C# 기초 문법을 익히고 기본기를 탄탄하게 다지는 것이 목적이다.");
@@ -44,24 +57,22 @@ public class BookRepositoryimpl implements BookRepository {
 	        listofBooks.add(book1);
 	        listofBooks.add(book2);
 	        listofBooks.add(book3);
-	    }
+	    }*/
 	
-	
+
 	@Override
 	public List<Book> getAllBookList() {
-		return listofBooks;
+		String SQL="select * from book";
+		List<Book> listOfBooks=template.query(SQL, new BookRowMapper());
+		return listOfBooks;
 	}
 
 
 	@Override
 	public List<Book> getBookListByCategory(String category) {
 		List<Book> booksByCategory =new ArrayList<Book>();
-		for(int i=0;i<listofBooks.size();i++) {
-			Book book = listofBooks.get(i);
-			if(category.equalsIgnoreCase(book.getCategory())) {
-				booksByCategory.add(book);
-			}
-		}
+		String SQL="select * from book where b_category Like '%" + category +"%'";
+		booksByCategory =template.query(SQL, new BookRowMapper());
 		return booksByCategory;
 	}
 
@@ -69,8 +80,26 @@ public class BookRepositoryimpl implements BookRepository {
 	public Set<Book> getBookListByFilter(Map<String, List<String>> filter) {
 		Set<Book> booksByPublisher =new HashSet<Book>();
 		Set<Book> booksByCategory =new HashSet<Book>();
+		Set<String> criterias=filter.keySet();
 		
-		Set<String> booksByFilter =filter.keySet();
+		if(criterias.contains("publisher")) {
+			for(int j=0;j<filter.get("publisher").size();j++) {
+				String publisherName=filter.get("publisher").get(j);
+				String SQL="select * from book where b_publisher Like '%"+publisherName+"%'";
+				booksByPublisher.addAll(template.query(SQL, new BookRowMapper()));
+				
+			}
+		}
+		if(criterias.contains("category")) {
+			for(int i=0;i<filter.get("category").size();i++) {
+				String category=filter.get("category").get(i);
+				String SQL="select * from book where b_category Like '%"+category+"%'";
+				booksByPublisher.addAll(template.query(SQL, new BookRowMapper()));
+				
+			}
+		}
+		
+	/*	Set<String> booksByFilter =filter.keySet();
 		
 		if(booksByFilter.contains("publisher")) {
 			for(int j=0; j<filter.get("publisher").size();j++) {
@@ -92,7 +121,7 @@ public class BookRepositoryimpl implements BookRepository {
 				List<Book> list =getBookListByCategory(category);
 				booksByCategory.addAll(list);
 			}
-		}
+		}*/
 		booksByCategory.retainAll(booksByPublisher);
 		return booksByCategory;
 	}
@@ -101,14 +130,12 @@ public class BookRepositoryimpl implements BookRepository {
 	@Override
 	public Book getBookById(String bookId) {
 		Book bookInfo =null;
-		for(int i=0;i<listofBooks.size();i++) {
-			Book book=listofBooks.get(i);
-			if(book !=null && book.getBookId() !=null && book.getBookId().equals(bookId)) {
-				bookInfo=book;
-				break;
-			}
+		String SQL ="SELECT COUNT(*) FROM book WHERE b_bookId = ?";
+		int rowCount = template.queryForObject(SQL, Integer.class,bookId);
+		if(rowCount !=0) {
+			SQL="SELECT * FROM book WHERE b_bookId = ?";
+			bookInfo= template.queryForObject(SQL, new Object[] {bookId},new BookRowMapper());
 		}
-		
 		if(bookInfo==null) {
 			throw new bookIdException(bookId);
 		}
@@ -118,7 +145,12 @@ public class BookRepositoryimpl implements BookRepository {
 
 	@Override
 	public void setNewBook(Book book) {
-		listofBooks.add(book);
+		System.out.println(book.getFileName());
+		String SQL="INSERT INTO book (b_bookId, b_name, b_unitPrice,b_author,b_description,b_publisher,b_category,b_unitsInStock,b_releaseDate,b_condition,b_fileName)"
+				+"VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		
+		template.update(SQL,book.getBookId(),book.getName(),book.getUnitPrice(),book.getAuthor(),book.getDescription()
+				,book.getPublisher(),book.getCategory(),book.getUnitsInStock(),book.getReleaseDate(),book.getCondition(),book.getFileName());
 		
 	}
 

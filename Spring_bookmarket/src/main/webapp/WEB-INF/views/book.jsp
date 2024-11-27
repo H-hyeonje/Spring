@@ -30,7 +30,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-			<img src="/Spring_bookmarket/resources/images/${book.bookId}.png" style="width: 100%"/>
+			<img src="/Spring_bookmarket/resources/images/${book.fileName}" style="width: 100%"/>
 			</div>
 			<div class="col-md-8">
 				<h3>${book.name}</h3>

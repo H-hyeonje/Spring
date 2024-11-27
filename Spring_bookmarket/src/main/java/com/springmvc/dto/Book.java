@@ -44,10 +44,18 @@ public class Book implements Serializable {
 	private String releaseDate; 
 	private String condition; 
 	private MultipartFile bookImage;
+	private String fileName;
 	
 	
 	
-	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public MultipartFile getBookImage() {
 		return bookImage;
 	}

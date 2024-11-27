@@ -95,5 +95,16 @@
 	<beans:bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
 		<beans:property name="viewResolvers" ref="tilesViewResolver"></beans:property>
 	</beans:bean>
+	<!--  데이터 베이스연결 connection -->
+<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+    <beans:property name="url" value="jdbc:mysql://localhost:3306/springmvcDB?serverTimezone=UTC"/>
+    <beans:property name="username" value="root"/>
+    <beans:property name="password" value="1234"/>
+</beans:bean>
+
+<beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <beans:property name="dataSource" ref="dataSource"/>
+</beans:bean>
 	
 </beans:beans>
